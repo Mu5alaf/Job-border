@@ -31,9 +31,8 @@ Job :
     - author
 
    Futures:
-    - search
-    - comment
-    - recent posts
+    - blog
+    - job
+    - accounts
     - contact
     - home
-    - login
