@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text">
-                        <h3>{{job_list.count}}+ Jobs Available</h3>
+                        <h3>{{job_num|length}}+ Jobs Available</h3>
                     </div>
                 </div>
             </div>
@@ -118,19 +118,19 @@
                             </div>
                         </div>
                     </div>
-{% for job in job_list%}
                     <div class="job_lists m-0">
+{% for job in job_list%}
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
                                 <div class="single_jobs white-bg d-flex justify-content-between">
                                     <div class="jobs_left d-flex align-items-center">
-                                        {% if job.image%}
+                                        {% if job.image %}
                                         <div class="thumb">
                                             <img src="{{job.image.url}}" width="50" height="50" alt="">
                                         </div>
                                         {%endif%}
                                         <div class="jobs_conetent">
-                                            <a href="{% url 'job:Job_Details' job.id %}"><h4>{{job.title}}</h4></a>
+                                            <a href="{% url 'job:Job_Details' job.slug %}"><h4>{{job.title}}</h4></a>
                                             <div class="links_locat d-flex align-items-center">
                                                 <div class="location">
                                                     <p> <i class="fa fa-map-marker"></i> California, USA</p>
@@ -154,18 +154,25 @@
                             </div>
                         </div>
 {% endfor %}
+{% if job_list.has_other_pages %}
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="pagination_wrap">
                                     <ul>
-                                        <li><a href="#"> <i class="ti-angle-left"></i> </a></li>
-                                        <li><a href="#"><span>01</span></a></li>
-                                        <li><a href="#"><span>02</span></a></li>
-                                        <li><a href="#"> <i class="ti-angle-right"></i> </a></li>
+                                        {% if job_list.has_previous %}
+                                        <li><a href="?page={{job_list.previous_page_number}}"><i class="ti-angle-left"></i> </a></li>
+                                        {% endif %}
+                                        {% for page_num in job_list.paginator.page_range  %}
+                                        <li><a href="?page={{page_num}}"><span>{{page_num}}</span></a></li>
+                                        {% endfor %}
+                                        {% if job_list.has_next %}
+                                        <li><a href="?page={{job_list.next_page_number}}"> <i class="ti-angle-right"></i> </a></li>
+                                        {% endif %}
                                     </ul>
                                 </div>
                             </div>
                         </div>
+{% endif %}
                     </div>
                 </div>
             </div>
