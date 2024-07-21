@@ -36,3 +36,16 @@ class Category(models.Model):
     
     def __str__ (self):
         return self.name
+    
+    
+
+class Apply(models.Model):
+    job = models.ForeignKey(Job,related_name='apply_job',on_delete=models.CASCADE)
+    name = models.CharField(max_length=30,blank=False,null=False)    
+    email = models.EmailField(max_length=30,blank=False,null=False)
+    portfolio_url = models.URLField(max_length=200,blank=True,null=True)
+    cover_letter = models.TextField(max_length=340,blank=True,null=True)    
+    cv_upload = models.FileField(upload_to='apply/',max_length=340,blank=True,null=True,default='Choice file')    
+    
+    def __str__(self):
+        return self.name
