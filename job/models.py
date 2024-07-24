@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 # Create your models here.
 
 #Job_Type
@@ -10,8 +11,10 @@ JOB_TYPE = (
 #rename upload image
 def image_rename(instance,filename):
     image_name , extension = filename.split('.')
-    return "job/%s/%s.%s"%(instance.id,instance.id,extension)
+    new_filename = "job/%s/%s.%s" % (instance.id, instance.id, extension)
+    return new_filename
 class Job(models.Model):
+    owner =  models.ForeignKey(User,related_name='job_owner',on_delete=models.CASCADE)
     title = models.CharField(max_length=100,blank=False,null=False)
     job_type = models.CharField(max_length=15,choices=JOB_TYPE,blank=False,null=False)
     description = models.TextField(max_length=999,blank=False,null=False,default='Write a description')
