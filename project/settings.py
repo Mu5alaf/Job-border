@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'home',
     'job',
     #forms
+    'bootstrap4',
     "crispy_forms",
     "crispy_bootstrap4",
 ]
