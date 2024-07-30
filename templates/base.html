@@ -70,16 +70,22 @@
                                         <ul id="navigation">
                                             <li><a href="{% url 'job:Job_List' %}">home</a></li>
                                             <li><a href="{% url 'job:Job_List' %}">Browse Job</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
+                                            <li><a href="{% url 'contact:contact_us'%}">Contact</a></li>
                                         </ul>
                                     </nav>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-3 d-none d-lg-block">
                                 <div class="Appointment">
+                                    {% if not request.user.is_authenticated %}
                                     <div class="phone_num d-none d-xl-block">
-                                        <a href="#">Log in</a>
+                                        <a href="{% url 'login' %}"><h5>Log in</h5></a>
                                     </div>
+                                    {%else%}
+                                    <div class="phone_num d-none d-xl-block">
+                                        <a href="{% url 'logout' %}"><h5 class='text-muted'>Log-out</h5></a>
+                                    </div>
+                                    {% endif %}
                                     <div class="d-none d-lg-block">
                                         <a class="boxed-btn3" href="{% url 'job:add_job' %}">Post a Job</a>
                                     </div>

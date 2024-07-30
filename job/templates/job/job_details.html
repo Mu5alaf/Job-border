@@ -73,6 +73,7 @@
                             <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing.</p>
                         </div>
                     </div>
+                    {% if request.user.is_authenticated %}
                     <div class="apply_job_form white-bg">
                         <h4>Apply for the job</h4>
                         <form method="POST" enctype='multipart/form-data'>
@@ -101,6 +102,14 @@
                             </div>
                         </form>
                     </div>
+                    {% else %}
+                    <div class="alert alert-warning mt-5" role="alert">
+                        <h4 class="alert-heading">Login to Apply!</h4>
+                        <p>You cannot apply if you are not user in our community to apply regist or login .</p>
+                        <hr>
+                        <p class="mb-0">Good Luck</p>
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="col-lg-4">
                     <div class="job_sumary">
