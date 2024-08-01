@@ -5,15 +5,19 @@ from .models import Job
 from .form import apply_form ,add_job_form
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+from .filters import Job_Filter
 # Create your views here.
 #Job_List
 
 def Job_List_view(request):
     job_list = Job.objects.all()
+    #flitter
+    my_filter = Job_Filter(request.GET,queryset=Job.objects.all())
+    job_list = my_filter.qs
     paginator = Paginator(job_list, 2)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    context={'job_list':page_obj,'job_num':job_list}
+    context={'job_list':page_obj,'job_num':job_list,'my_filter':my_filter}
     return render(request,'./job/jobs.html',context)
     
 
@@ -51,3 +55,4 @@ def add_job(request):
         form = add_job_form()
     context = {'form':form}
     return render(request,'./job/add_job.html',context)
+
