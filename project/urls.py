@@ -25,6 +25,7 @@ urlpatterns = [
     path('contact/', include('contact.urls',namespace='contact')),
     path('admin/', admin.site.urls),
     path('job/', include('job.urls',namespace='job')),
+    path('api-auth/', include('rest_framework.urls'))
 ]
 
 #Serving static files during development¶
